@@ -4,10 +4,10 @@ A set of tools (shell scripts) to extend [daemontools](http://cr.yp.to/daemontoo
 
 What it does:
  * Almost generically: run your services in the same way.
- * Can make services wait on others before starting (can notify hipchat, too).
+ * Can make services wait on others before starting.
  * Notify hipchat, when a service starts, stops, or is waiting for another
  service to start.
- * Save a pid file with the pid of the running process.
+ * Save a pid file with the pid of the running process, and delete it at the end.
   
 # Example
 

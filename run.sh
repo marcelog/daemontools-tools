@@ -21,6 +21,8 @@ fi
 service=${1}
 dependencies=${2}
 
+hipchat_notify "gray" "Trying to run service: ${service} with deps: ${dependencies}"
+
 # Wait for dependencies.
 for i in ${dependencies}; do
   waiton ${service} ${i}
