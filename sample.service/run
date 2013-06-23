@@ -1,0 +1,10 @@
+#!/bin/bash
+exec 2>&1
+
+# Name our service, do some other stuff needed.
+service=sample.service
+cd /service/${service}
+
+# Delegate running the command to our own run.sh below. Dependencies is an
+# optional parameter.
+exec envuidgid switch envdir ./env softlimit -d300000 /service/run.sh ${service} "dependency1 dependency2 dependency3"

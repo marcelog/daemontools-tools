@@ -1,0 +1,15 @@
+hipchat_key=some_key
+hipchat_url="https://api.hipchat.com/v1/rooms/message?format=json&auth_token=${hipchat_key}"
+hipchat_rooms="RoomA RoomB"
+hipchat_from=DaemonTools
+
+run_dir=/var/run
+service_dir="${root}"
+command_dir=/command
+
+curl=/usr/bin/curl
+grep=/bin/grep
+ps=/bin/ps
+
+waiton_time=30
+

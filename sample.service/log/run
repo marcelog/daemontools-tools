@@ -1,0 +1,7 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/command
+mkdir -p /var/log/sample.service
+chown -R nobody:nobody /var/log/sample.service
+exec 2>&1
+exec envuidgid nobody multilog t s10485760 n5 '!tai64nlocal' /var/log/sample.service
+

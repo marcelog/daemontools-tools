@@ -1,0 +1,6 @@
+# Include (source) this file from your own scripts. Just define
+# the variable "root" before, with the absolute path to the directory 
+# where you installed "daemontools-tools"
+. ${root}/config
+. ${root}/functions
+

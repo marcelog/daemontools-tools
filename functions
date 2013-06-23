@@ -1,0 +1,62 @@
+function get_pidfile() {
+  service=${1}
+  echo "${run_dir}/${service}/${service}.pid"
+}
+
+function get_service_dir() {
+  service=${1}
+  echo "${service_dir}/${service}"
+}
+
+function get_service_cmd() {
+  service=${1}
+  cmddir=$(get_service_dir ${service})
+  cmdfile="${cmddir}/cmd"
+  echo $(cat ${cmdfile})
+}
+
+function save_pidfile() {
+  service=${1}
+  pid=${2}
+  dir=$(get_service_dir ${service})
+  file=$(get_pidfile ${service})
+  mkdir -p ${dir}
+  echo ${pid} > ${file}
+}
+
+function del_pidfile() {
+  service=${1}
+  file=$(get_pidfile ${service})
+  rm -f ${file}
+}
+
+function is_pid_up() {
+  pid=${1}
+  ${ps} cax | ${grep} ${pid} | ${grep} -o '^[ ]*[0-9]*' | ${grep} ${pid} > /dev/null
+  if [ $? -eq "0" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+function waiton() {
+  me=${1}
+  name=${2}
+  pidfile=$(get_pidfile ${name})
+  while [ ! -f "${pidfile}" ]; do
+    echo "Waiting on ${name} startup..."
+    hipchat_notify "yellow" "${me} is waiting for ${name} to start"
+    sleep ${waiton_time}
+  done
+}
+
+function hipchat_notify() {
+  color=${1}
+  msg=${2}
+  for i in ${hipchat_rooms}; do
+    echo Sending to ${i} in ${color}: ${msg}
+    ${curl} -d "room_id=${i}&color=${color}&from=${hipchat_from}&message=${msg}" "${hipchat_url}"
+    sleep 1
+  done
+}
