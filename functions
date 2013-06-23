@@ -8,6 +8,11 @@ function get_service_dir() {
   echo "${service_dir}/${service}"
 }
 
+function get_pid_dir() {
+  service=${1}
+  echo "${run_dir}/${service}"
+}
+
 function get_service_cmd() {
   service=${1}
   cmddir=$(get_service_dir ${service})
@@ -18,7 +23,7 @@ function get_service_cmd() {
 function save_pidfile() {
   service=${1}
   pid=${2}
-  dir=$(get_service_dir ${service})
+  dir=$(get_pid_dir ${service})
   file=$(get_pidfile ${service})
   mkdir -p ${dir}
   echo ${pid} > ${file}
