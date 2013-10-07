@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check arguments.
 if [ "$#" -lt 1 ]; then
